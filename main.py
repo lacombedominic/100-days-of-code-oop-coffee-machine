@@ -1,3 +1,4 @@
+import menu
 from menu import Menu
 from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
@@ -15,13 +16,15 @@ machine_running = True
 
 while machine_running:
     user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
+    user_drink = Menu.MenuItem(user_choice)
 
     if user_choice == "off":
         machine_running = False
     elif user_choice == "report":
         report = CoffeeMaker().report()
-    elif user_choice in Menu().MenuItem():
-        if check_resources(resources, user_choice):
+    elif user_choice == user_drink:
+        make_drink = CoffeeMaker.is_resource_sufficient(self, user_drink)
+        if make_drink:
             total_money = process_coins()
             enough_money = check_payment(total_money, user_choice, resources)
             if enough_money:
