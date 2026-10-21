@@ -1,37 +1,30 @@
-import menu
+import money_machine
 from menu import Menu
 from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
 
-# Print report
-# Check resources sufficient
-# Process coins
-# Check transaction successful
-# Make coffee
-
-# MenuItem Class - This has the name of the drink, the cost of the drink and the ingredients and amounts required to make the drink.
-# Menu Class -
+menu = Menu()
+coffee_maker = CoffeeMaker()
+money_machine = MoneyMachine()
 
 machine_running = True
 
 while machine_running:
-    user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
-    user_drink = Menu.MenuItem(user_choice)
+
+    user_choice = input(f"What would you like? {menu.get_items()}: ").lower()
+    valid_drink = menu.find_drink(user_choice)
 
     if user_choice == "off":
         machine_running = False
     elif user_choice == "report":
-        report = CoffeeMaker().report()
-    elif user_choice == user_drink:
-        make_drink = CoffeeMaker.is_resource_sufficient(self, user_drink)
-        if make_drink:
-            total_money = process_coins()
-            enough_money = check_payment(total_money, user_choice, resources)
-            if enough_money:
-                make_coffee(resources, user_choice)
-            else:
-                continue
-        else:
-            continue
-    else:
-        print("That is an invalid option. Please try again.")
+        CoffeeMaker().report()
+        money_machine.report()
+    elif valid_drink: # <- Validate this
+        if coffee_maker.is_resource_sufficient(user_choice): # If there are enough resources for the drink (returns true).
+            user_money = money_machine.process_coins()
+            user_payment = money_machine.make_payment(user_money)
+    #     elif not coffee_maker.is_resource_sufficient(user_choice): # If there is not enough resources. Return False.
+    #         machine_running = False
+    #             # If there is enough money, make the drink and add it to the machine.
+    # else:
+    #     print("That is an invalid option. Please try again.")
