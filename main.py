@@ -19,8 +19,8 @@ while machine_running:
     elif user_choice == "report":
         CoffeeMaker().report()
         money_machine.report()
-    elif valid_drink: # <- Validate this
-        if coffee_maker.is_resource_sufficient(user_choice): # If there are enough resources for the drink (returns true).
+    elif valid_drink:
+        if coffee_maker.is_resource_sufficient(valid_drink): # If there are enough resources for the drink (returns true).
             user_money = money_machine.process_coins()
             user_payment = money_machine.make_payment(user_money)
     #     elif not coffee_maker.is_resource_sufficient(user_choice): # If there is not enough resources. Return False.
