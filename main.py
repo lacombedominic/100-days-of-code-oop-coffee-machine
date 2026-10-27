@@ -1,11 +1,12 @@
 import money_machine
-from menu import Menu
+from menu import Menu, MenuItem
 from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
 
 menu = Menu()
 coffee_maker = CoffeeMaker()
 money_machine = MoneyMachine()
+menu_item = MenuItem()
 
 machine_running = True
 
@@ -21,11 +22,10 @@ while machine_running:
         money_machine.report()
     elif valid_drink:
         if coffee_maker.is_resource_sufficient(valid_drink): # If there are enough resources for the drink (returns true).
-            user_money = money_machine.process_coins()
-            user_payment = money_machine.make_payment(user_money)
+            drink_cost = menu.cost
+            user_payment = money_machine.make_payment(cost)
         #    make_order = coffee_maker.make_coffee(valid_drink)
-        elif not coffee_maker.is_resource_sufficient(valid_drink): # If there is not enough resources. Return False.
+        else: # If there is not enough resources. Return False.
             machine_running = False
-    #             # If there is enough money, make the drink and add it to the machine.
     # else:
     #     print("That is an invalid option. Please try again.")
