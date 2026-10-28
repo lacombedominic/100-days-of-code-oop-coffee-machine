@@ -14,6 +14,8 @@ while machine_running:
 
     user_choice = input(f"What would you like? {menu.get_items()}: ").lower()
     valid_drink = menu.find_drink(user_choice)
+    valid_drink_ingredients = menu_item.ingredients(valid_drink)
+    valid_drink_cost = menu_item.cost(valid_drink)
 
     if user_choice == "off":
         machine_running = False
@@ -22,8 +24,8 @@ while machine_running:
         money_machine.report()
     elif valid_drink:
         if coffee_maker.is_resource_sufficient(valid_drink): # If there are enough resources for the drink (returns true).
-            drink_cost = menu.cost
-            user_payment = money_machine.make_payment(cost)
+
+            user_payment = money_machine.make_payment()
         #    make_order = coffee_maker.make_coffee(valid_drink)
         else: # If there is not enough resources. Return False.
             machine_running = False
